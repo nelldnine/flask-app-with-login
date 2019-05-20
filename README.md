@@ -1,6 +1,12 @@
 # Flask App
 
-Example Python-Flask app with the ability to register and login users.
+Example Python-Flask app built for Google App Engine with the ability to register and login users.
+
+### Requirements
+
+ - [Python 2.7](https://www.python.org/downloads/)
+ - [Google App Engine Python SDK](https://cloud.google.com/appengine/docs/standard/python/download)
+ - [Pip](https://pip.readthedocs.io/en/stable/installing/)
 
 ### Setup
 

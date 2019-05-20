@@ -10,12 +10,12 @@ Example Python-Flask app built for Google App Engine with the ability to registe
 
 ### Setup
 
-Install the dependencies with `pip`
-
+ 1. Update the variables defined in `settings.py`
+ 2. Install the dependencies with `pip`
 ```
 pip install -t lib -r requirements.txt
 ```
-Run the server with the following command:
+ 3. Run the development server with the following command:
 ```
 dev_appserver.py --log_level=debug .
 ```

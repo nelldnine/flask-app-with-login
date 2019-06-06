@@ -35,7 +35,7 @@ def register():
             )
             user.put()
         else:
-            return redirect(url_for('login', error='Email is already taken'))
+            return redirect(url_for('register', error='Email is already taken'))
         return redirect(url_for('login'))
     return render_template('register.html')
 

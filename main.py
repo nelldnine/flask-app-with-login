@@ -24,12 +24,18 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        user = User(
-            email=request.form.get('email'),
-            password=hashlib.md5(SALT + request.form.get('password')).hexdigest(),
-            name=request.form.get('name')
-        )
-        user.put()
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query(User.email == email).get()
+        if not user:
+            user = User(
+                email=email,
+                password=hashlib.md5(SALT + password).hexdigest(),
+                name=request.form.get('name')
+            )
+            user.put()
+        else:
+            return redirect(url_for('login', error='Email is already taken'))
         return redirect(url_for('login'))
     return render_template('register.html')
 

@@ -1,6 +1,7 @@
 import hashlib
-from flask import Flask, render_template, request, url_for, redirect, session
-from settings import SECRET, SALT
+import cloudstorage as gcs
+from flask import Flask, render_template, request, url_for, redirect, session, jsonify
+from settings import SECRET, SALT, BUCKET_NAME
 from models.user import User
 
 app = Flask(__name__)
@@ -42,6 +43,20 @@ def register():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        response = {}
+        f = request.files['file']
+        filename = '{}/{}'.format(BUCKET_NAME, f.filename)
+        gcs_options = {'x-goog-acl': 'public-read'}
+        gcs_file = gcs.open(filename, 'w', options=gcs_options)
+        gcs_file.write(f.read())
+        gcs_file.close()
+        response['file_url'] = 'https://storage.googleapis.com' + filename
+        return redirect(url_for('upload'))
+    return render_template('upload.html')
 
 @app.route('/logout')
 def logout():
